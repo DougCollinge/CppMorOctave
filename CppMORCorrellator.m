@@ -6,5 +6,8 @@ clear;
 graphics_settings;
 WMFunctions;
 
-sig= WMLeader();
+corr = WMTxSignal(0,2);
+plot(corr); return;
+
+sig= WMRxSignal(10,256,3);
 plot(sig);
