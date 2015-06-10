@@ -29,7 +29,7 @@ function signal = WMRxSignal(SNR=10,delaysamples=0,leaderpulses=20)
   txs = WMTxSignal(delaysamples,leaderpulses);
   
   # Add gaussian noise at a given SNR.
-  signal = awgn(txs,SNR,'measured');
+  signal = awgn(txs,SNR,.25);
 
 endfunction
 
