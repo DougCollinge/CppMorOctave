@@ -7,16 +7,23 @@ graphics_settings;
 WMFunctions;
 
 corr = WMTxSignal(0,1);
-corr * transpose(corr)
+%corr = corr(128+(-64:63));
+%corr * transpose(corr)
 %return
 %plot(corr); return;
 
-sig= WMRxSignal(SNR=10,256*20,20);
-%plot(sig); return;
+txsig= WMTxSignal(256*1000,3);
+%plot(txsig); return;
 
-for ilag=0:1:(columns(sig)-columns(corr))
+chansig= Channel(txsig,signalLevel=-3,SNR=-1);
+%plot(chansig);return;
 
-  xcor = sig((1:columns(corr))+ilag) * transpose(corr);
+rxsig= Receiver(chansig);
+%plot(rxsig); return;
+
+for ilag=0:1:(columns(rxsig)-columns(corr))
+
+  xcor = rxsig((1:columns(corr))+ilag) * transpose(corr);
   xcors(1+ilag) = xcor;
 endfor
 plot(xcors)
